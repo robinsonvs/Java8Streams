@@ -5,6 +5,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
@@ -60,8 +61,64 @@ public class JogadorImpl {
 		return listaDeJogadores;
 	}
 	
+	/**
+	 * 
+	 * @param jogadores
+	 */
+	public void imprimirJogadores(List<Jogador> jogadores) {
+		jogadores.stream().forEach(System.out::println);
+	}
 	
+	/**
+	 * 
+	 * @param jogadores
+	 * @param time
+	 */
+	public void imprimirJogadoresTime(List<Jogador> jogadores, String time) {
+		jogadores.stream().filter(jogador -> jogador.getTimeAtual().equals(time))
+			.forEach(System.out::println);
+	}
 	
+	/**
+	 * 
+	 * @param jogadores
+	 * @param time
+	 */
+	public void imprimirJogadoresTimeGols(List<Jogador> jogadores, String time) {
+		jogadores.stream().filter(jogador -> jogador.getTimeAtual().equals(time) && jogador.getGolsMarcados() > 10)
+			.forEach(System.out::println);
+	}
+	
+	/**
+	 * 
+	 * @param jogadores
+	 */
+	public void agruparJogadoresPorTime(List<Jogador> jogadores) {
+		jogadores.stream().sorted(Comparator.comparing(Jogador::getTimeAtual))
+			.forEach(System.out::println);
+	}
+	
+	/**
+	 * 
+	 * @param jogadores
+	 * @return
+	 */
+	public double calcularMediaIdade(List<Jogador> jogadores) {
+		return jogadores.stream().mapToInt(Jogador::getIdade).average().getAsDouble();
+	}
+
+	/**
+	 * 	
+	 * @param jogadores
+	 */
+	public void imprimirJogadorMaisVelho(List<Jogador> jogadores) {
+		Jogador jogador = jogadores.stream().max(Comparator.comparingInt(Jogador::getIdade)).get();
+		System.out.println("Jogador mais velho : " + jogador.getNome());
+	}
+	
+	public void imprimirJogadorMaisNovo() {
+		
+	}
 
 }
  
