@@ -116,7 +116,16 @@ public class JogadorImpl {
 		System.out.println("Jogador mais velho : " + jogador.getNome());
 	}
 	
-	public void imprimirJogadorMaisNovo() {
+	/**
+	 * 
+	 * @param jogadores
+	 */
+	public void imprimirJogadorMaisNovo(List<Jogador> jogadores) {
+		Jogador jogador = jogadores.stream().min(Comparator.comparingInt(Jogador::getIdade)).get();
+		System.out.println("Jogador mais novo : " + jogador.getNome());
+	}
+	
+	public void imprimirJogadorArtilheiro() {
 		
 	}
 
