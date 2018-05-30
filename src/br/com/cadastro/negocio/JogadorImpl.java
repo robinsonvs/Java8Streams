@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -125,8 +126,40 @@ public class JogadorImpl {
 		System.out.println("Jogador mais novo : " + jogador.getNome());
 	}
 	
-	public void imprimirJogadorArtilheiro() {
-		
+	/**
+	 * 
+	 * @param jogadores
+	 */
+	public void imprimirJogadorArtilheiro(List<Jogador> jogadores) {
+		Jogador jogador = jogadores.stream().max(Comparator.comparingInt(Jogador::getGolsMarcados)).get();
+		System.out.println("Jogador artilheiro : " + jogador.getNome());
+	}
+	
+	/**
+	 * 
+	 * @param jogadores
+	 * @return
+	 */
+	public int imprimirSomatorioGols(List<Jogador> jogadores) {
+		int soma = jogadores.stream().mapToInt(jogador -> jogador.getGolsMarcados()).sum();
+		return soma;
+	}
+	
+	/**
+	 * 
+	 * @param jogadores
+	 */
+	public void agruparJogadoresPeloTime(List<Jogador> jogadores) {
+		Map<String, List<Jogador>> groupByTime = jogadores.stream().collect(Collectors.groupingBy(Jogador::getTimeAtual));
+		System.out.println(groupByTime);
+	}
+	
+	/**
+	 * 
+	 * @param jogadores
+	 */
+	public void ordenarJogadoresGols(List<Jogador> jogadores) {
+		jogadores.stream().sorted(Comparator.comparingInt(Jogador::getGolsMarcados).reversed()).forEach(System.out::println);
 	}
 
 }
